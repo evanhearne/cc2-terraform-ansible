@@ -8,9 +8,9 @@ This repository is for Cloud Computing 2's Terraform Ansible assignment. It cont
 
 The aim of this assignment is to combine Terraform and Ansible to provision a load balancing environment using HAProxy and Apache on the AWS platform. 
 
-Currently, it does this through Ansible Playbooks, Ansible Inventory, and Terraform configuration. 
+Currently, it does this through Ansible roles, Ansible Playbooks, Ansible Inventory, and Terraform configuration. 
 
-However, it also needs to utilise Ansible roles and either Hashicorp or Ansible Vault to store variables pertaining to the AWS configuration. This will be done at a later stage...
+However, it also needs to utilise either Hashicorp or Ansible Vault to store variables pertaining to the AWS configuration. This will be done at a later stage...
 
 ## How to run
 
@@ -29,7 +29,7 @@ However, it also needs to utilise Ansible roles and either Hashicorp or Ansible 
 5. Run the following from `ansible/` directory:
     ```bash
     eval $(ssh-agent)
-    ssh add "<Your Root Directory>/cc2-terraform-ansible/ansible/vockey.pem"
+    ssh-add "<Your Root Directory>/cc2-terraform-ansible/ansible/vockey.pem"
     ssh -A -J ubuntu@<HA_PROXY_EC2_PUBLIC_IP> ubuntu@<APACHE_EC2_1_PRIVATE_IP>
     ```
     Confirm yes twice then type `exit` followed by the Return key. Then run:
@@ -38,8 +38,7 @@ However, it also needs to utilise Ansible roles and either Hashicorp or Ansible 
     ```
     Confirm yes then type `exit` followed by the Return key. Then run:
     ```bash
-    ansible-playbook -i inventory/aws_ec2.yml apache/playbook.yml
-    ansible-playbook -i inventory/aws_ec2.yml haproxy/playbook.yml
+    ansible-playbook -i inventory/aws_ec2.yml playbook.yml
     ```
     Ensure the plays run to completion. 
 

@@ -1,0 +1,15 @@
+---
+- name: Set up Apache
+  hosts:
+    - _apache_instance_1
+    - _apache_instance_2
+  become: true
+  roles:
+    - apache
+    
+- name: Set up HAProxy
+  hosts:
+    - _ha_proxy_lb
+  become: true
+  roles:
+    - haproxy

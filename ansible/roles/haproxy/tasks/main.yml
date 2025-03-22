@@ -1,0 +1,20 @@
+- name: Install HAProxy
+  apt:
+    name: haproxy
+    state: present
+    update_cache: yes
+
+- name: Set fact for Apache instance IP's
+  set_fact:
+    apache_instance_1_ip: "{{ hostvars[groups['_apache_instance_1'][0]].ansible_host }}"
+    apache_instance_2_ip: "{{ hostvars[groups['_apache_instance_2'][0]].ansible_host }}"
+
+- name: Configure HAProxy
+  template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+
+- name: Restart HAProxy
+  service:
+    name: haproxy
+    state: restarted
