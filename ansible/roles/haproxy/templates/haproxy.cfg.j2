@@ -24,10 +24,11 @@ defaults
     errorfile 504 /etc/haproxy/errors/504.http
 
 frontend http_front
-    bind *:80
+    bind *:{{ haproxy_listen_port }}
     default_backend apache_servers
 
 backend apache_servers
     balance roundrobin
-    server apache1 {{ apache_instance_1_ip }}:80 check
-    server apache2 {{ apache_instance_2_ip }}:80 check
+    {% for server in backend_servers %}
+    server {{ server.name }} {{ server.ip }}:80 check
+    {% endfor %}

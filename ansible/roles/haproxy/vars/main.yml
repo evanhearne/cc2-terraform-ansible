@@ -1,0 +1,6 @@
+haproxy_listen_port: 80
+backend_servers:
+  - name: apache1
+    ip: "{{ hostvars[groups['_apache_instance_1'][0]].ansible_host }}"
+  - name: apache2
+    ip: "{{ hostvars[groups['_apache_instance_2'][0]].ansible_host }}"

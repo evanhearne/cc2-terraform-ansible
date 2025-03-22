@@ -10,10 +10,6 @@
     state: started
     enabled: yes
 
-- name: Gather EC2 private IP
-  ansible.builtin.set_fact:
-    private_ip: "{{ ansible_default_ipv4.address }}"
-
 - name: Copy custom index.html
   template:
     src: index.html.j2
