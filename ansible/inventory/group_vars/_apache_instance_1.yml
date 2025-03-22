@@ -1,0 +1,1 @@
+ansible_ssh_common_args: -o ProxyJump=ubuntu@{{ hostvars[groups['_ha_proxy_lb'][0]].ansible_host }}

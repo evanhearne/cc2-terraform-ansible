@@ -1,0 +1,42 @@
+---
+- name: Ensure Apache is installed
+  hosts: 
+    - _apache_instance_1
+    - _apache_instance_2
+  become: yes
+
+  tasks:
+    - name: Install Apache
+      ansible.builtin.yum:
+        name: httpd
+        state: present
+      when: ansible_os_family == "RedHat"
+
+    - name: Install Apache
+      ansible.builtin.apt:
+        name: apache2
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Ensure Apache is started and enabled
+      ansible.builtin.service:
+        name: "{{ 'httpd' if ansible_os_family == 'RedHat' else 'apache2' }}"
+        state: started
+        enabled: yes
+
+    - name: Gather EC2 private IP
+      ansible.builtin.set_fact:
+        private_ip: "{{ ansible_default_ipv4.address }}"
+
+    - name: Create index.html with private IP
+      ansible.builtin.copy:
+        dest: /var/www/html/index.html
+        content: "Private IP: {{ private_ip }}"
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Restart Apache
+      ansible.builtin.service:
+        name: "{{ 'httpd' if ansible_os_family == 'RedHat' else 'apache2' }}"
+        state: restarted
