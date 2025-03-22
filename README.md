@@ -26,6 +26,12 @@ However, it also needs to utilise either Hashicorp or Ansible Vault to store var
     ```
     Ensure this runs successfully.
 
+5. Create a vault file from `ansible/` directory by running `ansible-vault create inventory/group_vars/all/vault.yml` . Enter a password and add the following information to the file"
+    ```yaml
+    ansible_user: ubuntu
+    ansible_ssh_private_key_file: vockey.pem
+    ```
+
 5. Run the following from `ansible/` directory:
     ```bash
     eval $(ssh-agent)
@@ -38,9 +44,9 @@ However, it also needs to utilise either Hashicorp or Ansible Vault to store var
     ```
     Confirm yes then type `exit` followed by the Return key. Then run:
     ```bash
-    ansible-playbook -i inventory/aws_ec2.yml playbook.yml
+    ansible-playbook -i inventory/aws_ec2.yml playbook.yml --ask-vault-pass
     ```
-    Ensure the plays run to completion. 
+    Enter your password followed by the Return key. Ensure the plays run to completion. 
 
 These steps provision VPC and Compute infrastructure via Terraform, and provision HAProxy and Apache via Ansible . 
 

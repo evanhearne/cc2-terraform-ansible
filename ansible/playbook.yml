@@ -4,6 +4,8 @@
     - _apache_instance_1
     - _apache_instance_2
   become: true
+  vars_files:
+    - inventory/group_vars/all/vault.yml
   roles:
     - apache
     
@@ -11,5 +13,7 @@
   hosts:
     - _ha_proxy_lb
   become: true
+  vars_files:
+    - inventory/group_vars/all/vault.yml
   roles:
     - haproxy

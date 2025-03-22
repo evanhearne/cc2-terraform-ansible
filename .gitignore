@@ -4,3 +4,4 @@ terraform/terraform.tfstate
 terraform/terraform.tfstate.backup
 terraform/.terraform/
 terraform/.terraform.tfstate.lock.info
+ansible/inventory/group_vars/all/vault.yml
